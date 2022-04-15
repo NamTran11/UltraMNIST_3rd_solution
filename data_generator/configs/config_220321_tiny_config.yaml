@@ -1,0 +1,43 @@
+# data_path: './digit-recognizer/train.csv'
+# save_dir: './outputs/220331_30K_train_tiny_v2' # rename to 220321_30K_test_tiny_v2
+data_path: './digit-recognizer/test.csv'
+save_dir: './outputs/220405_60K_test_tiny_v2' # rename to 220321_30K_test_tiny_v2
+save_mask: False
+num_sample: 60000
+output_size: [4000, 4000]
+resize_output: [1024, 1024]  # comment this line if you dont want to resize output file
+yoloformat: True
+export_txt_name: True
+# circle generating configs
+circle_config: 
+  prob_circle: 0.8
+  min_circle: 1
+  max_circle: 5
+  min_circle_radius: 300
+  max_circle_radius: 1500
+# triangle generating configs
+triangle_config:
+  prob_triangle: 0.8
+  min_triangle: 1
+  max_triangle: 5
+  min_triangle_size: 2000
+  max_triangle_size: 3000
+# grid generating configs
+grid_config:
+  min_cell: 20
+  max_cell: 50
+  output_size: 4000
+  prob: 0.5
+# digit config:
+digit_config:
+  min_num_digit: 3
+  max_num_digit: 5
+  size_p: './resources/p.npy'
+  min_size_digit: 50
+  max_size_digit: 100
+# tiny digit config
+tiny_digit_config:
+  output_size: [1024, 1024]
+  tiny_size: [8, 30]
+  medium_size: [300, 1000]
+  large_size: [1300, 1600]

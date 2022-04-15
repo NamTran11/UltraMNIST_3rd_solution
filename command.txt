@@ -1,0 +1,80 @@
+CUDA_VISIBLE_DEVICES=2 python detect.py --img-size 1024 --weights ./runs/train/yolov5x_fold0_220320_with_30K_p_from_testset/weights/best.pt --source '../dataset/test/*' --save-txt --save-conf --save-txt-dir './txt_predicts/txt_predict_220320_from_test_e14'
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 6 --epochs 15 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './pretrained_weights/best.pt' --name yolov5x_fold0_220320_with_30K_p_from_testset
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 6 --epochs 50 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220321_with_30K_tiny_dataset_v2_from_testset_retrain_e15/weights/best.pt' --name yolov5x_fold0_220323_with_30K_tiny_dataset_v3
+
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 50 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220320_with_30K_p_from_testset/weights/best.pt' --name yolov5x_normal_fold0_220327_with_60K_train_and_test
+
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 50 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220324_with_60K_merge_tiny_dataset_v2/weights/best.pt' --name yolov5x_tiny_v2_fold0_220331_with_60K_train_and_test
+
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 4 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220324_with_60K_merge_tiny_dataset_v2/weights/best.pt' --name yolov5x6_fold0_220406_with_60K_new_tiny_dataset_v2_from_220324
+
+1# train new normal model with yolov5x6 from pretrain
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1280 --batch 8 --epochs 50 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_normal_fold0_220327_with_60K_train_and_test/weights/best.pt' --name yolov5x_normal_fold0_220327_with_60K_new_train_and_test
+
+2# train new tiny model with yolov5x6 from pretrain
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1280 --batch 4 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x6.yaml --weights './runs/train/yolov5x_fold0_220324_with_60K_merge_tiny_dataset_v2/weights/best.pt' --name yolov5x6_fold0_220406_with_60K_new_tiny_dataset_v2_from_220324
+
+3# train 1# with converter 220327_train_test_60K
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1280 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x6.yaml --weights './runs/train/yolov5x_normal_fold0_220327_with_60K_new_train_and_test/weights/best.pt' --name yolov5x6_fold0_retrain_1_with_220327_train_test_60K
+
+
+4# train 2# with converter 220324_merge_tiny_v2_60K
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1280 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x6.yaml --weights './runs/train/yolov5x6_fold0_220406_with_60K_new_tiny_dataset_v2_from_220324/weights/best.pt' --name yolov5x6_fold0_retrain_2_with_merge_tiny_v2_60K
+
+5# retrain normal model 220327 with pseudo data from train + test
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_normal_fold0_220327_with_60K_train_and_test/weights/best.pt' --name yolov5x_normal_fold0_220327_with_pseudo_train_test_220407
+
+6# retrain normal model 220327 with pseudo data from train only
+CUDA_VISIBLE_DEVICES=1 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220324_with_60K_merge_tiny_dataset_v2/weights/best.pt' --name yolov5x_normal_fold0_220324_with_pseudo_train_test_220407_tiny
+
+
+7# train new tiny model with yolov5l6 from pretrain
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5l6.yaml --weights './runs/train/yolov5x_fold0_220324_with_60K_merge_tiny_dataset_v2/weights/best.pt' --name yolov5l6_fold0_220408_with_60K_new_tiny_dataset_v2_from_220324
+
+8# train 220327 normal model with 220409 dataset
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_normal_fold0_220327_with_60K_train_and_test/weights/best.pt' --name yolov5x_fold0_220409_60K_dataset_retrain_from_220327
+
+
+9# train 220327 normal model with 220405 dataset FOLD0
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_normal_fold0_220327_with_60K_train_and_test/weights/best.pt' --name yolov5x_fold0_220405_60K_dataset_retrain_from_220327_v222
+
+9# train 220327 normal model with 220405 dataset FOLD1
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_normal_fold0_220327_with_60K_train_and_test/weights/best.pt' --name yolov5x_fold1_220405_60K_dataset_retrain_from_220327_v222
+
+
+10# train 220409_fold0_e8 with normal model with 220409 dataset fold1
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220409_60K_dataset_retrain_from_220327/weights/best.pt' --name yolov5x_fold1_pretrain_220409_60K_dataset_retrain_from_220327
+
+11# train 220409_fold0_e8 with normal model with 220410 dataset fold0
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220409_60K_dataset_retrain_from_220327/weights/best.pt' --name yolov5x_fold0_220410_60K_dataset_retrain_from_220409
+
+12# train 220410_fold0_e20 with normal model with 220412 dataset fold0
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220410_60K_dataset_retrain_from_220409/weights/best.pt' --name yolov5x_fold0_220412_60K_dataset_retrain_from_220410
+
+
+13# train 220410_fold0_e20 with normal model with 220412 dataset fold0
+CUDA_VISIBLE_DEVICES=2 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220410_60K_dataset_retrain_from_220409/weights/best.pt' --name yolov5x_fold0_220412_60K_dataset_retrain_from_220410_tiny
+
+14# train 220409_fold0_e8 with normal model with 220410 dataset fold1
+CUDA_VISIBLE_DEVICES=1 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220409_60K_dataset_retrain_from_220327/weights/best.pt' --name yolov5x_fold1_220410_60K_dataset_retrain_from_220409
+
+15# train 220410_fold0_e20 with normal model with 220413 dataset fold0
+CUDA_VISIBLE_DEVICES=1 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220410_60K_dataset_retrain_from_220409/weights/best.pt' --name yolov5x_fold0_220413_60K_dataset_retrain_from_220410_v23
+
+16# train 220413_fold0_e28 normal model with 220414 dataset fold0
+CUDA_VISIBLE_DEVICES=1 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0_v2.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220413_60K_dataset_retrain_from_220410_v23/weights/best.pt' --name yolov5x_fold0_220414_60K_dataset_retrain_from_220413_v1112
+
+17# train 220413_fold0_e28 normal model with pseudo dataset
+CUDA_VISIBLE_DEVICES=1 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220413_60K_dataset_retrain_from_220410_v23/weights/best.pt' --name yolov5x_fold0_220414_60K_dataset_retrain_from_speudo
+
+
+18# train 220413_fold0_e28 normal model with pseudo dataset
+CUDA_VISIBLE_DEVICES=1 python train.py --img 1024 --batch 8 --epochs 100 --data ./ultra_mnist_fold0.yaml --cfg ./yolov5x.yaml --weights './runs/train/yolov5x_fold0_220414_60K_dataset_retrain_from_220413_v1112/weights/last.pt' --name yolov5x_fold0_220414_60K_dataset_retrain_from_speudo
+
+
+https://colab.research.google.com/github/obss/sahi/blob/main/demo/inference_for_yolov5.ipynb#scrollTo=P1VBsqDFnC9Z
+https://github.com/obss/sahi/blob/main/docs/cli.md#predict-command-usage
+https://github.com/obss/sahi
+
+# batch prediction yolov5
+https://github.com/ultralytics/yolov5/pull/668
