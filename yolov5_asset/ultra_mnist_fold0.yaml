@@ -1,0 +1,9 @@
+# train and val datasets (image directory or *.txt file with image paths)
+train: ../convertor_dataset_name/fold0/images/train2017/
+val: ../convertor_dataset_name/fold0/images/val2017/
+
+# number of classes
+nc: 10
+
+# class names
+names: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
